@@ -21,16 +21,6 @@ kind create cluster --name workshop --config cluster.yaml
 
 ### Running example application
 
-Build the docker image
-```bash
-docker build -t graillus/workshop-kubernetes:app-v1 docker-images/app
-```
-
-Load the image into the Kind nodes
-```bash
-kind load docker-image graillus/kubernetes-workshop:app-v1
-```
-
 Create a pod running the app
 ```bash
 kubectl run my-app --image=graillus/workshop-kubernetes:app-v1 --port=3000
