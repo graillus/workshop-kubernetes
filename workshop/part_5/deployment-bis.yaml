@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-other-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-other-app
+  template:
+    metadata:
+      labels:
+        app: my-other-app
+    spec:
+      containers:
+      - name: my-other-app
+        image: graillus/workshop-kubernetes:app-v1
+        ports:
+        - containerPort: 3000
+        # override default args of container
+        args:
+        - "node"
+        - "customconfig/index.js"
+        # mount volume at given path
+        volumeMounts:
+        - name: my-other-app-config
+          mountPath: /app/customconfig
+        # set MY_APP_SECRET env variable from secret
+        env:
+        - name: MY_OTHER_APP_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: my-other-app-secret
+              key: my-other-app-secret
+      # add volume from configMap
+      volumes:
+      - name: my-other-app-config
+        configMap:
+          name: my-other-app-config

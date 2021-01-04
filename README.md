@@ -21,6 +21,11 @@ kind create cluster --name workshop --config cluster.yaml
 
 ### Running example application
 
+Check your current context (should be `kind-workshop`)
+```bash
+kubectl config current-context
+```
+
 Create a pod running the app
 ```bash
 kubectl run my-app --image=graillus/workshop-kubernetes:app-v1 --port=3000
@@ -52,5 +57,5 @@ kubectl get pods --watch --namespace ingress-nginx
 ### Cleanup
 
 ```bash
-kind delete cluster workshop
+kind delete cluster --name workshop
 ```
