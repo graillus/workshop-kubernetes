@@ -15,7 +15,7 @@ sudo mv ./kubectl /usr/local/bin/kubectl
 
 We will install `kind` (Kubernetes IN Docker)
 ```bash
-curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.9.0/kind-$(uname)-amd64
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.9.0/kind-linux-amd64
 chmod +x kind
 sudo mv kind /usr/local/bin
 ```
