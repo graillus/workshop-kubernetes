@@ -1,6 +1,5 @@
-Part 0
-===================
-
+Part 0: Initialisation
+======================
 ### Install kubectl
 
 Follow instructions here: https://kubernetes.io/docs/tasks/tools/install-kubectl/

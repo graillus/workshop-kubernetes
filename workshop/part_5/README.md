@@ -1,9 +1,9 @@
-Part 3
-===================
+Part 5: ConfigMap and Secrets
+=============================
 
-### configMap and secret
+### ConfigMap and Secret
 
-Create configMap and secret
+Create the ConfigMap and Secret resources
 ```bash
 kubectl apply -f secret.yaml
 kubectl apply -f configmap.yaml

@@ -1,5 +1,5 @@
-Part 1
-===================
+Part 1: Pods
+============
 
 ### Running example application
 
@@ -22,11 +22,26 @@ Watch created pod
 ```bash
 kubectl get pods --watch
 ```
+
 Create a port-forward to access the app
 ```bash
 kubectl port-forward pods/my-app 8080:3000
 ```
 
 You can now access the app at : http://localhost:8080
+
+### Updating the app version
+
+Edit the file `pod.yaml` and update the docker image tag to `app-v2`
+Save the file and run:
+```bash
+kubectl apply -f pod.yaml
+```
+
+If you are fast enough, you can keep hitting F5 on your browser to track the changes.
+
+What happens ?
+
+### Deleting the pod
 
 What happen when running `kubectl delete pod` against the pods that just get created ?

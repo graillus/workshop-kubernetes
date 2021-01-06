@@ -1,5 +1,5 @@
-Part 3
-===================
+Part 3: Deployments with multiple replicas
+==========================================
 
 ### Replicas
 
@@ -24,4 +24,6 @@ Get pods
 kubectl get pods
 ```
 
-What should happen when clicking on "Terminate server" ?
+### Simulate a crash of the application
+
+What happens when you click on the `Terminate Server` button ?
