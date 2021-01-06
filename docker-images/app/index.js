@@ -2,7 +2,7 @@ const os = require('os')
 const express = require('express')
 const app = express()
 
-const VERSION = 'v1.0'
+const VERSION = 'v2.0'
 
 app.use((req, res, next) => {
   next()
@@ -48,7 +48,7 @@ const renderHtml = content => {
     <title>Workshop Kubernetes</title>
   </head>
   <body>
-    <nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-dark bg-primary">
       <span class="navbar-brand mb-0 h1">Workshop Kubernetes</span>
     </nav>
 
