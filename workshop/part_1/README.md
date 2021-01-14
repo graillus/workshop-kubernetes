@@ -30,6 +30,10 @@ kubectl port-forward pods/my-app 8080:3000
 
 You can now access the app at : http://localhost:8080
 
+### Simulate a crash of the application
+
+What happens when you click on the `Terminate Server` button ?
+
 ### Updating the app version
 
 Edit the file `pod.yaml` and update the docker image tag to `app-v2`

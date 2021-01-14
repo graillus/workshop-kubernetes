@@ -27,7 +27,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/mast
 
 ### Ingress
 
-Before creating our Ingress, let's create an other Deployment and Service
+Before creating our Ingress, let's create an other Deployment and Service.
 
 Create a second service and deployment `my-other-app`
 ```bash
