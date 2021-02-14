@@ -1,5 +1,6 @@
-const uploadsFolder = 'public/uploads'
-const publicFolder = 'uploads'
+const publicFolder = process.env.FILE_STORAGE_PATH || __dirname
+const uploadsFolder = publicFolder + '/' + 'uploads'
+
 const fs = require('fs')
 
 const listFiles = (req, res) => {
