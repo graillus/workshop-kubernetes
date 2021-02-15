@@ -1,33 +1,54 @@
 const os = require('os')
+const ejs = require('ejs');
 const express = require('express')
-const app = express()
+const fileUpload = require('express-fileupload');
+const path = require('path')
+
+const { listFiles, uploadFile } = require('./files')
 
 const VERSION = 'v2.0'
 
+const app = express()
+
+// Setup template engine
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'ejs')
+
+// Make app version available to middlewares
+app.use((req, _, next) => {
+  req.version = VERSION
+  next()
+})
+
+// Access logs to console
 app.use((req, res, next) => {
   next()
   console.log(`${req.method} ${req.path} ${res.statusCode}`)
 })
 
+// Serve public files
+app.use(express.static('./public'));
+
+// Handle file uploads
+app.use(fileUpload());
+
+
+// Controllers
+
 app.get('/', (_, res) => {
-  const content = `
-    <h1>Hello, world!</h1>
-    <p>
-      App is running on host ${os.hostname()}
-    </p>
-    <a class="btn btn-danger" href="/terminate" role="button">Terminate server</a>
-  `
-  res.send(renderHtml(content))
+  res.render('pages/home', {
+    host: os.hostname(),
+    version: VERSION,
+  })
 })
 
+app.get('/files', listFiles)
+app.post('/files/upload', uploadFile);
+
 app.get('/terminate', (_, res) => {
-  const content = `
-  <div class="alert alert-danger" role="alert">
-    Something wrong happended and process is going to exit !
-  </div>
-  <a class="btn btn-primary" href="/" role="button">Go back to homepage</a>
-  `
-  res.send(renderHtml(content))
+  res.send(ejs.renderFile('pages/home', {
+    version: VERSION,
+  }))
 
   process.exit(123)
 })
@@ -35,47 +56,3 @@ app.get('/terminate', (_, res) => {
 app.listen(3000, '0.0.0.0', () => {
   console.log('App listening on port 3000')
 })
-
-const renderHtml = content => {
-  return `
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <title>Workshop Kubernetes</title>
-  </head>
-  <body>
-    <nav class="navbar navbar-dark bg-primary">
-      <span class="navbar-brand mb-0 h1">Workshop Kubernetes</span>
-    </nav>
-
-    <main role="main" class="container">
-      <div class="row mt-3">
-        <div class="col">
-        ${content}
-        </div>
-      </div>
-    </main>
-
-    <footer class="footer bg-light">
-      <div class="container">
-        <span class="text-muted">App version ${VERSION}</span>
-      </div>
-    </footer>
-    <style type="text/css">
-      .footer {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        /* Set the fixed height of the footer here */
-        height: 60px;
-        line-height: 60px; /* Vertically center the text there */
-      }
-    </style>
-  </body>
-</html>
-  `
-}

@@ -1,0 +1,29 @@
+<%- include('../templates/head')-%>
+
+<main role="main" class="container">
+    <div class="row mt-3">
+        <div class="col">
+            <h1>File explorer</h1>
+            <hr>
+            <h3>Files in folder /app/public/uploads/</h3>
+            <% if (files.length === 0) { %>
+                <p>Directory is empty</p>
+            <% } else { %>
+            <ul>
+                <% files.forEach(function(file) { %>
+                <li><a href="<%= file.url %>"><%= file.name %></a></li>
+                <%});%>
+            </ul>
+            <% } %>
+            <form action="/files/upload" method="POST" encType="multipart/form-data" class="form-inline">
+                <div class="form-group mb-2">
+                  <label for="fileupload" class="sr-only">Upload new file</label>
+                  <input name="upload" type="file" class="form-control-file" id="fileupload">
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Upload file</button>
+            </form>              
+        </div>
+    </div>
+</main>
+
+<%- include('../templates/footer')-%>
