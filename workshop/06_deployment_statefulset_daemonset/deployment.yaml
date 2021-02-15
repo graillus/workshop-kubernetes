@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: workshop-web
+spec:
+  replicas: 1
+  strategy:
+    # Pod replacement strategy when a new version is deployed (RollingUpdate or Recreate)
+    type: RollingUpdate
+  progressDeadlineSeconds: 600 # If the progress for the deployment exceeds this time it is considered to be failed.
+  selector:
+    matchLabels:
+      app: workshop-web
+  template:
+    metadata:
+      labels:
+        app: workshop-web
+    spec:
+      containers:
+      - name: workshop-web
+        image: graillus/workshop-kubernetes:app-v1
+        ports:
+        - containerPort: 3000
