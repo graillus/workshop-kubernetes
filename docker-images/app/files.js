@@ -1,11 +1,13 @@
-const publicFolder = process.env.FILE_STORAGE_PATH || __dirname + '/public'
-const uploadsFolder = publicFolder + '/' + 'uploads'
+const storagePath = process.env.FILE_STORAGE_PATH || __dirname + '/public'
+const uploadsDir = 'uploads'
+const uploadsPath = storagePath + '/' + uploadsDir
 
 const fs = require('fs')
 
 const listFiles = (req, res) => {
-  fs.readdir(uploadsFolder, (err, files) => {
+  fs.readdir(uploadsPath, (err, files) => {
     const data = {
+      uploadsPath: uploadsPath,
       files: [],
       version: req.version,
     }
@@ -19,7 +21,7 @@ const listFiles = (req, res) => {
     data.files = files.map(file => {
       return {
         name: file,
-        url: `${publicFolder}/${file}`,
+        url: `/${uploadsDir}/${file}`,
       }
     })
 
@@ -35,7 +37,7 @@ const uploadFile = (req, res) => {
   console.log(req.files); // the uploaded file object
 
   const uploadedFile = req.files.upload
-  const uploadPath = uploadsFolder + '/' + uploadedFile.name
+  const uploadPath = uploadsPath + '/' + uploadedFile.name
 
   uploadedFile.mv(uploadPath, (err) => {
     if (err) {

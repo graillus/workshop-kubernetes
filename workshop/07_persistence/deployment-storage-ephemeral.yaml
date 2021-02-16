@@ -23,7 +23,7 @@ spec:
         # mount volume at given path
         volumeMounts:
         - name: storage # references the volume declared below
-          mountPath: /data/files/uploads
+          mountPath: /data/files
       volumes:
       # The "storage" volume will contain uploaded files from users
       - name: storage

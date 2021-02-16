@@ -3,6 +3,7 @@ const ejs = require('ejs');
 const express = require('express')
 const fileUpload = require('express-fileupload');
 const path = require('path')
+const fs = require('fs')
 
 const { listFiles, uploadFile } = require('./files')
 
@@ -26,8 +27,16 @@ app.use((req, res, next) => {
   console.log(`${req.method} ${req.path} ${res.statusCode}`)
 })
 
+const storagePath = process.env.FILE_STORAGE_PATH || __dirname + '/public'
+const uploadsPath = storagePath + '/uploads'
+
+if (!fs.existsSync(uploadsPath)){
+  console.log('Creating uploads directory ' + uploadsPath)
+  fs.mkdirSync(uploadsPath, { recursive: true });
+}
+
 // Serve public files
-app.use(express.static('./public'));
+app.use(express.static(storagePath));
 
 // Handle file uploads
 app.use(fileUpload());
