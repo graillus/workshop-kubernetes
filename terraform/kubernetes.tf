@@ -61,3 +61,32 @@ resource "kubernetes_cluster_role_binding" "cluster_view" {
     api_group = "rbac.authorization.k8s.io"
   }
 }
+
+resource "kubernetes_cluster_role_binding" "eks_nodes_view" {
+  metadata {
+    name = "eks_nodes_view"
+  }
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = "eks_nodes_view"
+  }
+  subject {
+    kind      = "Group"
+    name      = "workshop:users"
+    api_group = "rbac.authorization.k8s.io"
+  }
+}
+
+
+resource "kubernetes_cluster_role" "eks_nodes_view" {
+  metadata {
+    name = "eks_nodes_view"
+  }
+
+  rule {
+    api_groups = [""]
+    resources  = ["nodes"]
+    verbs      = ["get", "list", "watch"]
+  }
+}
