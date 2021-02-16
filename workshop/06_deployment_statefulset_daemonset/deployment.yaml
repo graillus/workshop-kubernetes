@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: workshop-web
 spec:
-  replicas: 1
+  replicas: 3
   strategy:
     # Pod replacement strategy when a new version is deployed (RollingUpdate or Recreate)
     type: RollingUpdate
