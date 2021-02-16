@@ -1,4 +1,4 @@
-const publicFolder = process.env.FILE_STORAGE_PATH || __dirname
+const publicFolder = process.env.FILE_STORAGE_PATH || __dirname + '/public'
 const uploadsFolder = publicFolder + '/' + 'uploads'
 
 const fs = require('fs')
@@ -12,6 +12,8 @@ const listFiles = (req, res) => {
 
     if (err) {
       console.log(err)
+
+      return []
     }
 
     data.files = files.map(file => {
@@ -33,7 +35,7 @@ const uploadFile = (req, res) => {
   console.log(req.files); // the uploaded file object
 
   const uploadedFile = req.files.upload
-  const uploadPath = __dirname + '/' + uploadsFolder + '/' + uploadedFile.name
+  const uploadPath = uploadsFolder + '/' + uploadedFile.name
 
   uploadedFile.mv(uploadPath, (err) => {
     if (err) {
