@@ -5,17 +5,14 @@ metadata:
   labels:
     {{- include "workshop-app.labels" . | nindent 4 }}
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: "alb"
+    alb.ingress.kubernetes.io/scheme: "internet-facing"
 spec:
   rules:
-    - host: 'localhost'
+    - host: app.k8s-workshop.eleven-labs.com
       http:
         paths:
         - path: /
           backend:
-            serviceName: my-app
-            servicePort: 8080
-        - path: /my-other-app/
-          backend:
-            serviceName: my-other-app
+            serviceName: {{ include "workshop-app.fullname" . }}
             servicePort: 8080

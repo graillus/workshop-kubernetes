@@ -44,9 +44,7 @@ We currently have our release installed with revision 1
 ```bash
 helm list                                                                                                       NAME       NAMESPACE REVISION	UPDATED                                 STATUS      CHART           APP VERSION
 my-release default   1          2021-02-12 18:04:15.326798998 +0100 CET	deployed	my-chart-0.1.0	0.1.0      
-We can deploy a new version of "my-release" with updated values:
 ```
-
 
 Let's deploy a new version with new values
 ```bash
@@ -57,7 +55,6 @@ The release is now in revision 2, and the deployment now runs the app-v2 image.
 ```bash
 helm list                                                                                                       NAME       NAMESPACE REVISION	UPDATED                                 STATUS      CHART           APP VERSION
 my-release default   2          2021-02-12 18:05:43.149827749 +0100 CET	deployed	my-chart-0.1.0	0.1.0      
-We can deploy a new version of "my-release" with updated values:
 ```
 
 ## Rollback
