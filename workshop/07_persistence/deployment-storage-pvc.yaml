@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: workshop-web
+spec:
+  replicas: 1
+  strategy:
+    # Pod replacement strategy when a new version is deployed (RollingUpdate or Recreate)
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: workshop-web
+  template:
+    metadata:
+      labels:
+        app: workshop-web
+    spec:
+      containers:
+      - name: app
+        image: graillus/workshop-kubernetes:app-stateful
+        ports:
+        - containerPort: 3000
+        env:
+        - name: FILE_STORAGE_PATH
+          value: /data/files
+        volumeMounts:
+        - name: persistent-storage
+          mountPath: /data/files
+      volumes:
+      # The "persistent-storage" volume will store files on the disk provided by the PersistentVolumeClaim.
+      - name: persistent-storage
+        persistentVolumeClaim:
+        claimName: my-persistent-volumeclaim

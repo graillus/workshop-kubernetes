@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "workshop-app.fullname" . }}
+  labels:
+    {{- include "workshop-app.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }} # All values from values.yaml are in the .Values variable
+  selector:
+    matchLabels:
+      {{- include "workshop-app.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "workshop-app.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - name: workshop-app
+        image: graillus/workshop-kubernetes:app-v1 # <-- Let's change this to use variables instead
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: 3000

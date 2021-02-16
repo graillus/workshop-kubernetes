@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: workshop-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: workshop-web
+  serviceName: workshop-service
+  template:
+    metadata:
+      labels:
+        app: workshop-web
+    spec:
+      containers:
+      - name: app
+        image: graillus/workshop-kubernetes:app-stateful
+        ports:
+        - containerPort: 3000
+        env:
+        - name: FILE_STORAGE_PATH
+          value: /data/files
+        volumeMounts:
+        - name: persistent-storage
+          mountPath: /data/files
+  # Configure the PersistentVolumeClaim to create for each replica of the StatefulSet
+  volumeClaimTemplates:
+  - metadata:
+      name: persistent-storage
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 100Mi
