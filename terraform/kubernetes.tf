@@ -37,7 +37,7 @@ resource "kubernetes_role_binding" "namesapce_edit" {
   role_ref {
     api_group = "rbac.authorization.k8s.io"
     kind      = "ClusterRole"
-    name      = "edit"
+    name      = "cluster-admin"
   }
   subject {
     kind      = "User"
