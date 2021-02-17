@@ -63,6 +63,8 @@ kubectl describe pods -l app=workshop-web
 
 How can you fix that ? Check the `deployment-storage-pvc.yaml` file for some hints
 
+**Bonus:** What happens when we deploy more than 1 replica ?
+
 
 3. Using a StatefulSet
 
@@ -75,6 +77,10 @@ Deploy the application
 ```bash
 kubectl apply -f statefulset.yaml
 ```
+
+Now trigger a rollout, and everything should work as expected.
+
+What happens if we increase replicas to 3 ?
 
 
 
