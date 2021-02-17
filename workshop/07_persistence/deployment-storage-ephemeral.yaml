@@ -28,3 +28,16 @@ spec:
       # The "storage" volume will contain uploaded files from users
       - name: storage
         emptyDir: {} # emptyDir will store files in a random location on the host disk.
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-exposed-service
+spec:
+  type: NodePort
+  ports:
+    - name: default
+      port: 3000
+      targetPort: 3000
+  selector:
+    app: workshop-web

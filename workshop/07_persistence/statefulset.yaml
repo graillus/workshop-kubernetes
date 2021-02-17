@@ -6,12 +6,12 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: workshop-web
+      app: workshop-web-sts
   serviceName: workshop-service
   template:
     metadata:
       labels:
-        app: workshop-web
+        app: workshop-web-sts
     spec:
       containers:
       - name: app
@@ -33,3 +33,16 @@ spec:
       resources:
         requests:
           storage: 100Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-exposed-service
+spec:
+  type: NodePort
+  ports:
+    - name: default
+      port: 3000
+      targetPort: 3000
+  selector:
+    app: workshop-web-sts
