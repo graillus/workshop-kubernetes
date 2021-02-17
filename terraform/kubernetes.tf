@@ -89,4 +89,9 @@ resource "kubernetes_cluster_role" "eks_nodes_view" {
     resources  = ["nodes"]
     verbs      = ["get", "list", "watch"]
   }
+  rule {
+    api_groups = [""]
+    resources  = ["persistentvolumes"]
+    verbs      = ["get", "list", "watch"]
+  }
 }
