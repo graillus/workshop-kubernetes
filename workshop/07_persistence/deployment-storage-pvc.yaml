@@ -30,4 +30,17 @@ spec:
       # The "persistent-storage" volume will store files on the disk provided by the PersistentVolumeClaim.
       - name: persistent-storage
         persistentVolumeClaim:
-        claimName: my-persistent-volumeclaim
+          claimName: my-persistent-volumeclaim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-exposed-service
+spec:
+  type: NodePort
+  ports:
+    - name: default
+      port: 3000
+      targetPort: 3000
+  selector:
+    app: workshop-web
