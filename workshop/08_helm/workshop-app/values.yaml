@@ -8,4 +8,4 @@ image:
   repository: graillus/workshop-kubernetes
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "app-v1"

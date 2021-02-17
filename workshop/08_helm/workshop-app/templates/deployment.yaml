@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: workshop-app
-        image: graillus/workshop-kubernetes:app-v1 # <-- Let's change this to use variables instead
+        image: "graillus/workshop-kubernetes:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
         - containerPort: 3000

@@ -7,7 +7,7 @@ const fs = require('fs')
 
 const { listFiles, uploadFile } = require('./files')
 
-const VERSION = 'v2.0'
+const VERSION = 'v3.0'
 
 const app = express()
 
